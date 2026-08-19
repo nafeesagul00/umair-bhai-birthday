@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Umair Bhai! 🎉</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow: hidden;
+        }
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 90%;
+            width: 400px;
+            animation: fadeIn 2s ease-in-out;
+        }
+        h1 {
+            color: #ffdd59;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        .subtitle {
+            font-size: 1.1rem;
+            color: #00d2d3;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #dcdde1;
+        }
+        .btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+            transition: transform 0.2s;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+        }
+        .hidden-wish {
+            display: none;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            animation: popUp 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popUp {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>🎉 Happy Birthday! 🎉</h1>
+        <div class="subtitle">To My Amazing Elder Brother: UMAIR ALI 👑</div>
+        <p>Aap dunya ke sab se behtareen barray bhai hain! Allah aapko hamesha khush rakhe aur kamyabi de. 🤲✨</p>
+        
+        <button class="btn" onclick="showWish()">Click for Special Message 🎁</button>
+
+        <div class="hidden-wish" id="wish">
+            <p>💖 <b>Bhai Wish:</b><br>
+            Aap hamesha mere protector aur mentor rahe hain. Thank you for always having my back! Enjoy your special day! 🎂🎈</p>
+        </div>
+    </div>
+
+    <script>
+        function showWish() {
+            document.getElementById('wish').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
