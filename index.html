@@ -3,259 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Umair Ali Bhai! 🥳🎉</title>
+    <title>Happy Birthday Umair Ali Bhai! 🥳✨</title>
+    <!-- Confetti & FontAwesome -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            background: linear-gradient(-45deg, #ff007f, #7928ca, #00d4ff, #ffcc00);
-            background-size: 400% 400%;
-            animation: partyBG 8s ease infinite;
+            background: #0d0d11;
             font-family: 'Poppins', sans-serif;
             color: #fff;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
-        @keyframes partyBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Floating Balloons */
-        .balloon {
+        /* Animated Glowing Background Sphere */
+        .bg-glow {
             position: absolute;
-            bottom: -100px;
-            width: 45px;
-            height: 60px;
-            border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-            opacity: 0.8;
-            animation: floatUp 7s linear infinite;
-            z-index: 1;
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(45deg, #ff007f, #7928ca, #00d4ff);
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: pulseGlow 6s ease-in-out infinite alternate;
         }
 
-        .balloon::after {
-            content: "";
-            position: absolute;
-            bottom: -12px;
-            left: 21px;
-            width: 2px;
-            height: 15px;
-            background: rgba(255, 255, 255, 0.7);
-        }
-
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(0deg); opacity: 0.9; }
-            100% { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+        @keyframes pulseGlow {
+            0% { transform: scale(0.8) translate(-50px, -50px); }
+            100% { transform: scale(1.2) translate(50px, 50px); }
         }
 
         .main-card {
             position: relative;
             z-index: 10;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(20px);
-            border: 3px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px;
-            padding: 35px 25px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 30px 20px;
             width: 90%;
-            max-width: 450px;
+            max-width: 420px;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(255, 255, 255, 0.3);
-            animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
 
-        @keyframes popIn {
-            from { opacity: 0; transform: scale(0.5); }
-            to { opacity: 1; transform: scale(1); }
+        /* TikTok Style Animated Header */
+        .tiktok-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            background: linear-gradient(45deg, #ff007f, #ffcc00, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glowText 2s ease-in-out infinite alternate;
         }
 
-        .banner-title {
-            font-family: 'Fredoka One', cursive;
-            font-size: 2.2rem;
-            color: #fff;
-            text-shadow: 3px 3px 0px #ff007f, 6px 6px 0px #000;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
+        @keyframes glowText {
+            from { filter: drop-shadow(0 0 5px #ff007f); }
+            to { filter: drop-shadow(0 0 20px #00d4ff); }
         }
 
-        /* Glowing Photo Frame */
-        .profile-box {
+        /* 3D Glass Photo Frame Carousel */
+        .photo-frame-container {
             position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 15px auto;
-            border-radius: 50%;
-            padding: 6px;
-            background: linear-gradient(45deg, #ffcc00, #ff007f, #00d4ff);
-            background-size: 200%;
-            animation: rotateGlow 3s linear infinite, bouncePhoto 2s ease-in-out infinite alternate;
+            width: 220px;
+            height: 260px;
+            margin: 20px auto;
+            border-radius: 20px;
+            overflow: hidden;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes rotateGlow {
-            0% { background-position: 0%; }
-            100% { background-position: 200%; }
-        }
-
-        @keyframes bouncePhoto {
-            from { transform: translateY(0); box-shadow: 0 0 20px #ffcc00; }
-            to { transform: translateY(-8px); box-shadow: 0 0 40px #ff007f; }
-        }
-
-        .profile-box img {
+        .slide-img {
             width: 100%;
             height: 100%;
-            border-radius: 50%;
             object-fit: cover;
-            border: 4px solid #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transform: scale(1.1) rotate(2deg);
+            transition: all 0.8s ease-in-out;
         }
 
-        .sub-heading {
-            font-size: 1.3rem;
-            font-weight: 800;
-            margin-top: 10px;
-            color: #fff;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        .slide-img.active {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
         }
 
         .name-tag {
-            color: #ffcc00;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.7rem;
-            display: block;
-            margin-top: 5px;
-            text-shadow: 2px 2px 0px #000;
-        }
-
-        /* Party Gift Button */
-        .gift-btn {
-            background: linear-gradient(45deg, #ffcc00, #ff007f);
-            color: #000;
-            font-family: 'Fredoka One', cursive;
-            font-size: 1.2rem;
-            padding: 15px 35px;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            margin-top: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-top: 10px;
+            color: #fff;
             letter-spacing: 1px;
         }
 
-        .gift-btn:hover {
-            transform: scale(1.1) rotate(-3deg);
-            background: linear-gradient(45deg, #00d4ff, #ffcc00);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        .bhai-highlight {
+            color: #ffcc00;
+            text-shadow: 0 0 10px rgba(255, 204, 0, 0.6);
         }
 
-        /* Festive Wish Box */
-        .wish-box {
+        /* Music Player Style Button */
+        .play-btn {
+            background: linear-gradient(45deg, #ff007f, #7928ca);
+            color: #fff;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            box-shadow: 0 10px 20px rgba(255, 0, 127, 0.4);
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 0, 127, 0.7);
+        }
+
+        /* Wishing Card Popup */
+        .wish-card {
             display: none;
             margin-top: 20px;
             background: rgba(0, 0, 0, 0.6);
-            border-radius: 20px;
+            border: 1px solid rgba(255,204,0,0.5);
+            border-radius: 15px;
             padding: 20px;
-            border: 2px solid #ffcc00;
             text-align: center;
-            animation: fadeInUp 0.6s ease forwards;
+            animation: slideUp 0.6s ease;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .wish-text {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #fff;
-        }
-
-        .cake-emoji {
-            font-size: 3rem;
-            margin-bottom: 10px;
-            animation: bounceCake 0.8s infinite alternate;
-        }
-
-        @keyframes bounceCake {
-            from { transform: translateY(0) scale(1); }
-            to { transform: translateY(-12px) scale(1.1); }
+        .wish-card p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #e0e0e0;
         }
     </style>
 </head>
 <body>
 
-    <!-- Floating Party Balloons -->
-    <div class="balloon" style="left: 8%; background: #ff007f; animation-duration: 6s;"></div>
-    <div class="balloon" style="left: 22%; background: #00d4ff; animation-duration: 8s; animation-delay: 1s;"></div>
-    <div class="balloon" style="left: 50%; background: #ffcc00; animation-duration: 5s; animation-delay: 2s;"></div>
-    <div class="balloon" style="left: 78%; background: #7928ca; animation-duration: 7s; animation-delay: 0.5s;"></div>
-    <div class="balloon" style="left: 92%; background: #ff007f; animation-duration: 9s; animation-delay: 3s;"></div>
+    <div class="bg-glow"></div>
 
     <div class="main-card">
-        <div class="banner-title">🎉 HAPPY BIRTHDAY! 🎉</div>
+        <div class="tiktok-title">Happy Birthday</div>
         
-        <div class="profile-box">
-            <img src="bhai.jpg" alt="Umair Ali Bhai" onerror="this.src='https://i.ibb.co/L840p0S/avatar.png'">
+        <!-- Animated Multi-Photo Frame -->
+        <div class="photo-frame-container">
+            <img class="slide-img active" src="bhai1.jpg" onerror="this.src='https://i.ibb.co/L840p0S/avatar.png'">
+            <img class="slide-img" src="bhai2.jpg" onerror="this.src='https://i.ibb.co/L840p0S/avatar.png'">
+            <img class="slide-img" src="bhai3.jpg" onerror="this.src='https://i.ibb.co/L840p0S/avatar.png'">
+            <img class="slide-img" src="bhai4.jpg" onerror="this.src='https://i.ibb.co/L840p0S/avatar.png'">
         </div>
 
-        <div class="sub-heading">
-            To The Best Elder Brother
-            <span class="name-tag">👑 UMAIR ALI BHAI 👑</span>
+        <div class="name-tag">
+            👑 <span class="bhai-highlight">UMAIR ALI BHAI</span> 👑
         </div>
 
-        <button class="gift-btn" onclick="triggerParty()">
-            🎁 TAP TO OPEN SURPRISE! 🎈
+        <!-- Audio Player (Optional Music) -->
+        <audio id="bgMusic" loop>
+            <source src="song.mp3" type="audio/mpeg">
+        </audio>
+
+        <button class="play-btn" onclick="startCelebration()">
+            <i class="fa-solid fa-heart"></i> TAP FOR SURPRISE 🎉
         </button>
 
-        <div class="wish-box" id="wishBox">
-            <div class="cake-emoji">🎂🥳</div>
-            <div class="wish-text">
-                <p><strong>Dearest Umair Bhai,</strong></p>
-                <p>Aap dunya ke sab se amazing, supportive, aur best barray bhai hain! ❤️</p>
-                <p>Allah aapko hamesha sehat, lambi umar, aur behad khushiyan ata farmaye. Aapke saare khwab aur goals poore ho! 🤲✨</p>
-                <br>
-                <p style="color: #ffcc00; font-weight: bold; font-size: 1.1rem;">~ Stay Blessed Always! 🎉</p>
-            </div>
+        <div class="wish-card" id="wishCard">
+            <h3 style="color: #ffcc00; margin-bottom: 10px;">🎂 Best Bhai Ever! 🎂</h3>
+            <p>
+                Allah aapko hamesha khush rakhe, lambi aur sehat wali zindagi de, aur aapki har khwahish poori farmaye! ✨
+            </p>
+            <p style="margin-top: 10px; font-weight: bold; color: #ff007f;">
+                ~ Happy Birthday Bhai! ❤️
+            </p>
         </div>
     </div>
 
     <script>
-        function triggerParty() {
-            document.querySelector('.gift-btn').style.display = 'none';
-            document.getElementById('wishBox').style.display = 'block';
+        // Automatic Smooth Photo Transition
+        let currentIndex = 0;
+        const slides = document.querySelectorAll('.slide-img');
 
-            // Multi-Stage Blast Confetti
-            var duration = 3 * 1000;
-            var end = Date.now() + duration;
+        function nextSlide() {
+            slides[currentIndex].classList.remove('active');
+            currentIndex = (currentIndex + 1) % slides.length;
+            slides[currentIndex].classList.add('active');
+        }
+
+        setInterval(nextSlide, 2500); // Har 2.5 seconds baad photo change hogi
+
+        // Celebration Trigger (Music + Explosive Confetti)
+        function startCelebration() {
+            document.querySelector('.play-btn').style.display = 'none';
+            document.getElementById('wishCard').style.display = 'block';
+
+            // Try playing background song if song.mp3 is uploaded
+            var music = document.getElementById("bgMusic");
+            music.play().catch(e => console.log("Audio play blocked or file missing"));
+
+            // Full Screen Confetti Blast
+            var duration = 4 * 1000;
+            var animationEnd = Date.now() + duration;
 
             (function frame() {
+                var timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return;
+
                 confetti({
-                    particleCount: 7,
+                    particleCount: 5,
                     angle: 60,
                     spread: 55,
                     origin: { x: 0 },
                     colors: ['#ff007f', '#ffcc00', '#00d4ff']
                 });
                 confetti({
-                    particleCount: 7,
+                    particleCount: 5,
                     angle: 120,
                     spread: 55,
                     origin: { x: 1 },
                     colors: ['#7928ca', '#ffcc00', '#ffffff']
                 });
 
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                requestAnimationFrame(frame);
             }());
         }
     </script>
