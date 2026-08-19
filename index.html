@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Umair Ali Bhai! 🥳✨</title>
+    <title>Happy Birthday Umair Bhai! 🥳✨</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
@@ -120,7 +120,7 @@
             color: #ffcc00;
             font-family: 'Fredoka One', cursive;
             text-shadow: 2px 2px 0px #000;
-            font-size: 1.6rem;
+            font-size: 1.8rem;
         }
 
         .play-btn {
@@ -174,10 +174,15 @@
     <div class="balloon" style="left: 75%; background: #7928ca; animation-duration: 7s; animation-delay: 0.5s;"></div>
     <div class="balloon" style="left: 90%; background: #ff007f; animation-duration: 9s; animation-delay: 3s;"></div>
 
+    <!-- Background Birthday Tune -->
+    <audio id="birthdayAudio" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-430.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="main-card">
         <div class="tiktok-title">🎉 HAPPY BIRTHDAY! 🎉</div>
         
-        <!-- Multi-Photo Frame with Fallback Images -->
+        <!-- Multi-Photo Frame -->
         <div class="photo-frame-container">
             <img class="slide-img active" src="bhai1.jpg" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500'">
             <img class="slide-img" src="bhai2.jpg" onerror="this.src='https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500'">
@@ -185,11 +190,11 @@
         </div>
 
         <div class="name-tag">
-            👑 <span class="bhai-highlight">UMAIR ALI BHAI</span> 👑
+            👑 <span class="bhai-highlight">UMAIR BHAI</span> 👑
         </div>
 
         <button class="play-btn" onclick="startCelebration()">
-            🎁 TAP FOR SURPRISE! 🎈
+            🎁 TAP FOR SURPRISE & MUSIC! 🎵
         </button>
 
         <div class="wish-card" id="wishCard">
@@ -219,7 +224,12 @@
             document.querySelector('.play-btn').style.display = 'none';
             document.getElementById('wishCard').style.display = 'block';
 
-            var duration = 3 * 1000;
+            // Play Music
+            var audio = document.getElementById("birthdayAudio");
+            audio.play().catch(e => console.log("Audio autoplay restricted:", e));
+
+            // Confetti Animation
+            var duration = 4 * 1000;
             var animationEnd = Date.now() + duration;
 
             (function frame() {
