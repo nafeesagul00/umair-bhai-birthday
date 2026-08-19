@@ -1,101 +1,208 @@
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Umair Bhai! 🎉</title>
+    <title>Surprise for Umair Bhai! 🎁</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            margin: 0;
-            padding: 0;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: #fff;
+            background: #0d1117;
+            font-family: 'Fira Code', monospace, sans-serif;
+            color: #c9d1d9;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            text-align: center;
             overflow: hidden;
         }
-        .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            max-width: 90%;
-            width: 400px;
-            animation: fadeIn 2s ease-in-out;
+
+        .container {
+            text-align: center;
+            position: relative;
+            z-index: 10;
         }
-        h1 {
-            color: #ffdd59;
-            font-size: 2.2rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        .subtitle {
-            font-size: 1.1rem;
-            color: #00d2d3;
-            font-weight: bold;
-            margin-bottom: 20px;
-        }
-        p {
-            font-size: 1rem;
-            line-height: 1.6;
-            color: #dcdde1;
-        }
-        .btn {
-            background: #ff4757;
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            font-size: 1rem;
-            border-radius: 25px;
+
+        /* 3D Gift Box Styling */
+        .gift-box {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin: 20px auto;
             cursor: pointer;
+            transition: transform 0.3s;
+            perspective: 1000px;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .box-body {
+            width: 100%;
+            height: 100%;
+            background: #e74c3c;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box-lid {
+            position: absolute;
+            top: -15px;
+            left: -10px;
+            width: 150px;
+            height: 35px;
+            background: #c0392b;
+            border-radius: 8px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+            transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 2;
+        }
+
+        /* Ribbon */
+        .ribbon-v {
+            position: absolute;
+            width: 25px;
+            height: 100%;
+            background: #f1c40f;
+            left: 52px;
+        }
+        .ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 25px;
+            background: #f1c40f;
+            top: 52px;
+        }
+
+        .click-hint {
+            color: #f1c40f;
+            font-size: 1.1rem;
+            animation: bounce 1.5s infinite;
             margin-top: 20px;
-            box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
-            transition: transform 0.2s;
+            font-weight: bold;
         }
-        .btn:hover {
-            transform: scale(1.05);
+
+        /* Opened State */
+        .gift-box.open .box-lid {
+            transform: translateY(-120px) rotate(-25deg);
+            opacity: 0;
         }
-        .hidden-wish {
+
+        /* Terminal Window */
+        .terminal {
             display: none;
+            background: #161b22;
+            border: 2px solid #30363d;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 90vw;
+            width: 450px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+            text-align: left;
             margin-top: 20px;
-            padding-top: 15px;
-            border-top: 1px solid rgba(255, 255, 255, 0.2);
-            animation: popUp 0.5s ease-in-out forwards;
+            animation: expand 0.5s ease-out forwards;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        .terminal-header {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #30363d;
+            padding-bottom: 10px;
         }
-        @keyframes popUp {
-            from { opacity: 0; transform: scale(0.8); }
+
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+
+        .code-text {
+            color: #58a6ff;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .highlight { color: #2ea043; font-weight: bold; }
+        .name-tag { color: #ffa657; font-size: 1.3rem; font-weight: bold; }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes expand {
+            from { opacity: 0; transform: scale(0.5); }
             to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>🎉 Happy Birthday! 🎉</h1>
-        <div class="subtitle">To My Amazing Elder Brother: UMAIR ALI 👑</div>
-        <p>Aap dunya ke sab se behtareen barray bhai hain! Allah aapko hamesha khush rakhe aur kamyabi de. 🤲✨</p>
-        
-        <button class="btn" onclick="showWish()">Click for Special Message 🎁</button>
+    <div class="container">
+        <div id="box-wrapper">
+            <h2 style="color: #fff; margin-bottom: 15px;">🔒 Top Secret Message Received!</h2>
+            <div class="gift-box" onclick="openBox()">
+                <div class="box-lid">
+                    <div class="ribbon-v"></div>
+                </div>
+                <div class="box-body">
+                    <div class="ribbon-v"></div>
+                    <div class="ribbon-h"></div>
+                </div>
+            </div>
+            <p class="click-hint">👇 Click the Gift Box to Open! 👇</p>
+        </div>
 
-        <div class="hidden-wish" id="wish">
-            <p>💖 <b>Bhai Wish:</b><br>
-            Aap hamesha mere protector aur mentor rahe hain. Thank you for always having my back! Enjoy your special day! 🎂🎈</p>
+        <div class="terminal" id="terminal">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+                <span style="font-size: 0.8rem; color: #8b949e; margin-left: auto;">birthday_wish.exe</span>
+            </div>
+            <div class="code-text" id="typed-text"></div>
         </div>
     </div>
 
     <script>
-        function showWish() {
-            document.getElementById('wish').style.display = 'block';
+        function openBox() {
+            const box = document.querySelector('.gift-box');
+            box.classList.add('open');
+            
+            // Trigger Confetti Party Explosion
+            confetti({
+                particleCount: 150,
+                spread: 80,
+                origin: { y: 0.6 }
+            });
+
+            setTimeout(() => {
+                document.getElementById('box-wrapper').style.display = 'none';
+                document.getElementById('terminal').style.display = 'block';
+                typeWriter();
+            }, 700);
+        }
+
+        // Typing Effect Script
+        const message = `>>> SYSTEM STATUS: SUCCESSFUL 🎉\n\n[USER DETECTED]: <span class="name-tag">UMAIR ALI BHAI</span>\n[ROLE]: Best Elder Brother Ever 👑\n\n------------------------------\n🎉 HAPPY BIRTHDAY BHAI! 🎉\n------------------------------\n\n> Loading Wishes...\n> [✔] Health & Longevity Loaded\n> [✔] Endless Success Unlocked\n> [✔] All Dreams Initialized\n\n"Allah aapko hamesha khush rakhe, kamyabi de, aur hamare sar par aapka saya hamesha qaim rakhe! Aameen 🤲✨"\n\n- Wish you the absolute best! 🎂🎈`;
+
+        let i = 0;
+        function typeWriter() {
+            const element = document.getElementById("typed-text");
+            // Fast Typing Animation
+            let currentText = message.substr(0, i);
+            element.innerHTML = currentText;
+            i++;
+            if (i <= message.length) {
+                setTimeout(typeWriter, 20);
+            }
         }
     </script>
 </body>
