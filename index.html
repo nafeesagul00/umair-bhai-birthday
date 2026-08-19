@@ -142,6 +142,22 @@
             background: linear-gradient(45deg, #00d4ff, #ffcc00);
         }
 
+        /* Dedicated Music Player Control */
+        .music-control-btn {
+            background: rgba(0, 0, 0, 0.7);
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+            padding: 8px 18px;
+            font-size: 0.9rem;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
         .wish-card {
             display: none;
             margin-top: 20px;
@@ -174,9 +190,9 @@
     <div class="balloon" style="left: 75%; background: #7928ca; animation-duration: 7s; animation-delay: 0.5s;"></div>
     <div class="balloon" style="left: 90%; background: #ff007f; animation-duration: 9s; animation-delay: 3s;"></div>
 
-    <!-- Background Birthday Tune -->
-    <audio id="birthdayAudio" loop>
-        <source src="https://assets.mixkit.co/music/preview/mixkit-happy-birthday-430.mp3" type="audio/mpeg">
+    <!-- Reliable Direct Birthday Audio Track -->
+    <audio id="birthdayAudio" loop preload="auto">
+        <source src="https://cdn.pixabay.com/download/audio/2022/01/18/audio_d0a13f69d2.mp3" type="audio/mpeg">
     </audio>
 
     <div class="main-card">
@@ -194,7 +210,12 @@
         </div>
 
         <button class="play-btn" onclick="startCelebration()">
-            🎁 TAP FOR SURPRISE & MUSIC! 🎵
+            🎁 TAP FOR SURPRISE! 🎉
+        </button>
+
+        <br>
+        <button class="music-control-btn" onclick="toggleAudio()">
+            <i class="fa-solid fa-music" id="musicIcon"></i> <span id="musicText">Play Music 🎵</span>
         </button>
 
         <div class="wish-card" id="wishCard">
@@ -211,6 +232,7 @@
     <script>
         let currentIndex = 0;
         const slides = document.querySelectorAll('.slide-img');
+        const audio = document.getElementById("birthdayAudio");
 
         function nextSlide() {
             slides[currentIndex].classList.remove('active');
@@ -220,13 +242,24 @@
 
         setInterval(nextSlide, 2500);
 
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                document.getElementById('musicText').innerText = "Pause Music ⏸️";
+            } else {
+                audio.pause();
+                document.getElementById('musicText').innerText = "Play Music 🎵";
+            }
+        }
+
         function startCelebration() {
             document.querySelector('.play-btn').style.display = 'none';
             document.getElementById('wishCard').style.display = 'block';
 
-            // Play Music
-            var audio = document.getElementById("birthdayAudio");
-            audio.play().catch(e => console.log("Audio autoplay restricted:", e));
+            // Play Music automatically on surprise button tap
+            audio.play().then(() => {
+                document.getElementById('musicText').innerText = "Pause Music ⏸️";
+            }).catch(e => console.log("Playback error:", e));
 
             // Confetti Animation
             var duration = 4 * 1000;
